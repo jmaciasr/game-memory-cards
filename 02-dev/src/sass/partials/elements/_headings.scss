@@ -1,0 +1,23 @@
+// Normalize
+// ==========================================================================
+// Correct the font size and margin on `h1` elements within `section` and
+// `article` contexts in Chrome, Firefox, and Safari.
+h1 {
+  color: $color-accent;
+  font-size: 24px;
+  font-family: $font-family-contrast;
+  margin-bottom: 20px;
+}
+
+.h-section {
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.h-page {
+    color: inherit;
+    text-align: center;
+    text-shadow: 0 0 2px rgba(0, 0, 0, .25);
+    text-transform: uppercase;
+}
+

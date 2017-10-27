@@ -1,0 +1,32 @@
+.btn {
+    color: $color-base;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.btn--principal {
+    background-color: $color-cta;
+
+    &:hover {
+        background-color: $color-accent;
+    }
+}
+
+// .btn--secundary {
+//     background-color:;
+
+//     &:hover {
+//         background-color:;
+//     }
+// }
+
+// .btn--small {
+    
+// }
+
+// .btn--invert {
+
+//     &:hover {
+       
+//     }
+//}
