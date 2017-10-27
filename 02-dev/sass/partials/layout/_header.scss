@@ -1,0 +1,14 @@
+header {
+	background-color: $color-base;
+	border-bottom: 4px solid $color-accent;
+	display: flex;
+	
+	div {
+		justify-content: space-between;
+	}
+}
+
+.logo,
+.reset-btn {
+	display: inline;
+}

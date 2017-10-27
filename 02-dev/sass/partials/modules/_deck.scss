@@ -1,0 +1,20 @@
+.deck {
+	// display: flex;
+	// flex-wrap: wrap;
+	// justify-content: space-between;
+
+	img {
+		cursor: pointer;
+		height: 24%;
+		margin-top: 5px;
+		width: 24%;
+
+		@include query(720px) {
+			width: 18%;		
+		}
+
+		@include query(1024px) {
+			width: 13%;		
+		}		
+	}
+}

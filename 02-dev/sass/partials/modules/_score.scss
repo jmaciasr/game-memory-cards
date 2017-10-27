@@ -1,0 +1,34 @@
+.scores {
+	padding: 20px 0;
+
+	p {
+		@include query(768px) {
+			font-size: 27px;		
+		}
+
+		@include query(1024px) {
+			font-size: 32px;		
+		}	
+
+		@include query(1200px) {
+			font-size: 38px;		
+		}			
+	}
+}
+
+.score__best {
+		margin: 0;
+}
+
+.score__current {
+		margin: 0;
+}
+
+
+.score__best:before {
+	content: "Best Score:";
+}
+
+.score__current:before {
+	content: "Current:";
+}
