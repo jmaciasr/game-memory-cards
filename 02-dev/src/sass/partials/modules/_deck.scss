@@ -1,13 +1,8 @@
 .deck {
-	// display: flex;
-	// flex-wrap: wrap;
-	// justify-content: space-between;
-
 	img {
 		cursor: pointer;
-		height: 24%;
-		margin: 5px;
 		width: 24%;
+		margin-bottom: 10px;
 
 		@include query(720px) {
 			width: 18%;		
@@ -17,4 +12,16 @@
 			width: 13%;		
 		}		
 	}
+}
+
+.back-card {
+	background: url("../img/c0-mobile.jpg") no-repeat center / cover;
+	cursor: pointer;
+	display: inline;
+	margin: 5px;
+	padding: 19px 0px;
+}
+
+.card--hidden {
+	visibility: hidden;
 }
