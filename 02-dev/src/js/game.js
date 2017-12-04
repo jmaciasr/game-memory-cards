@@ -38,26 +38,38 @@ function hiddenCards () {
   for (let i = 0; i < hiddenCards.length; i++) {
     hiddenCards[i].classList.add('card--hidden')
     hiddenCards[i].setAttribute('id', 'card' + i)
+    hiddenCards[i].dataset.clicked = false
   }
 }
 
 window.setTimeout(hiddenCards, 1000)
 
-let clickCard1
-let clickCard2
-let accountant = 0
-
+let clickedCards = 0
+let previus
+let current
+let score = 0
 function showCard (element) {
+  if (clickedCards === 2) {
+    return true
+  }
   let currentEle = element.target
   let currentCard = currentEle.childNodes
-  console.log(currentCard[0].id)
-  currentCard[0].classList.remove('card--hidden')
-
-  if (accountant === 0) {
-    clickCard1 = currentCard[0]
-    accountant = 1
-  } else if (accountant === 1) {
-    clickCard2 = currentCard[0]
+  if (currentEle.getAttribute('data-clicked')) {
+    alert('you need other card')
+  }
+  if (currentCard[0] !== undefined) {
+    currentCard[0].classList.remove('card--hidden')    
+    currentCard[0].dataset.clicked = true
+    clickedCards++
+    previus = current
+    current = currentCard[0].src
+  }
+  if (previus === current) {
+    score =+ 100 
+    console.log(score)
+  } else if (previus !== current && clickedCards === 2) {
+    window.setTimeout(hiddenCards, 1000)
+    clickedCards = 0
   }
 }
 
