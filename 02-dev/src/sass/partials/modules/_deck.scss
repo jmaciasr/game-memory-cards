@@ -1,7 +1,7 @@
 .deck {
 	img {
 		cursor: pointer;
-		width: 24%;
+		width: 20%;
 		margin-bottom: 10px;
 
 		@include query(720px) {
