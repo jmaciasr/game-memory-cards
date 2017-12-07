@@ -20,6 +20,8 @@ var htmlmin = require('gulp-htmlmin')
 var uglify = require('gulp-uglify')
 var del = require('del')
 var imagemin = require('gulp-imagemin')
+var runSequence = require('run-sequence')
+var workbox = require('workbox-build')
 
 //
 // Begin Gulp Tasks.
@@ -44,11 +46,20 @@ gulp.task('html:prod', function () {
 })
 
 //
-// HTML Dev Workflow.
+// HTML Dev Manifest.
 //
 gulp.task('manifest:dev', function () {
-  return gulp.src(['src/*manifest.json'])
+  return gulp.src(['src/manifest.json'])
     .pipe(gulp.dest('.tmp'))
+    .pipe(connect.reload())
+})
+
+//
+// HTML Prod Manifest.
+//
+gulp.task('manifest:prod', function () {
+  return gulp.src(['src/static/manifest.json'])
+    .pipe(gulp.dest('dist/static'))
     .pipe(connect.reload())
 })
 
@@ -163,7 +174,7 @@ gulp.task('styleguide:watch', function () {
 gulp.task('connect', function () {
   connect.server({
     livereload: true,
-    root: '.tmp'
+    root: 'dist'
   })
 })
 
@@ -177,6 +188,23 @@ gulp.task('watch', function () {
   gulp.watch('src/js/**/*.js', ['lint', 'js:dev'])
 })
 
+//
+// Generate SW.
+//
+gulp.task('sw:generate', () => {
+  return workbox.generateSW({
+    globDirectory: './dist',
+    globPatterns: ['**\/*.{html,js,css,jpg,png}'],
+    swDest: './dist/sw.js',
+    clientsClaim: true,
+    skipWaiting: true
+  }).then(() => {
+    console.info('Service worker generation completed.');
+  }).catch((error) => {
+    console.warn('Service worker generation failed: ' + error);
+  });
+});
+
 gulp.task('clean', function () {
   return del([
     '.tmp',
@@ -188,6 +216,8 @@ gulp.task('clean', function () {
 //
 // Composite Task declarations.
 //
-gulp.task('dev', ['html:dev', 'images:dev', 'styles:dev', 'js:dev', 'connect', 'watch', 'manifest'])
-gulp.task('build', ['lint', 'html:prod', 'images:prod', 'styles:prod', 'js:prod'])
+gulp.task('dev', ['html:dev', 'images:dev', 'styles:dev', 'js:dev', 'connect', 'manifest:dev', 'watch'])
+gulp.task('build', function() {
+  runSequence(['html:prod', 'images:prod', 'styles:prod', 'js:prod', 'connect', 'manifest:prod'], 'sw:generate')
+})
 gulp.task('styleguide', ['styleguide:generate', 'styleguide:watch'])
